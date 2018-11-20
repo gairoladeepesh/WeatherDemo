@@ -15,6 +15,7 @@ class WeatherModel: NSObject {
     var cities =  Array<Any>()
     let serverURLPrefix = "https://www.metaweather.com/api/"
     let imageURL = "https://www.metaweather.com/static/img/weather/png/64/"
+    var defaultCities = ["Gothenburg", "Stockholm", "Mountain View", "London", "New York", "Berlin"]
     
     var tomorrow: Date {
         return Calendar.current.date(byAdding: .day, value: 1, to: Date())!
@@ -39,7 +40,7 @@ class WeatherModel: NSObject {
     }()
     
     func createNewCity(city: String, woeid: String) {
-        //To be done: Check for duplicates//
+        
         let context = persistentContainer.viewContext
         let cityEntity = NSEntityDescription.entity(forEntityName: "Cities", in: context)
         
@@ -155,21 +156,6 @@ class WeatherModel: NSObject {
             completionBlock(location)
         })
     }
-    
-//    func getLocationInfo(city: String, completionBlock: @escaping (Weather) -> Void) {
-//
-//        let url = serverURLPrefix+"location/search/?query=\(city)"
-//
-//        _ = requestHandler.getLocationUpdatesFromServer(withURL: url, completionBlock: { location in
-//            //location object
-//
-//            self.updateCityInfo(location: location.first!)
-//            let woeid = "\(String(describing: location.first!.woeid))"
-//            self.getCityWeatherInfo(woeid: woeid, completionBlock: { weather in
-//                completionBlock(weather)
-//            })
-//        })
-//    }
     
     func getCityWeatherInfo(woeid: String, completionBlock: @escaping (Weather) -> Void) {
         

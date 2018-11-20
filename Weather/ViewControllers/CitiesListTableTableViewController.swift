@@ -17,7 +17,6 @@ class CitiesListTableViewController: UITableViewController,NVActivityIndicatorVi
     var objWeather = Weather()
     var objLocation:[Location]?
     var selectedLocation: Location?
-    var defaultCities = ["Gothenburg", "Stockholm", "Mountain View", "London", "New York", "Berlin"]
     
     
     override func viewDidLoad() {
@@ -57,7 +56,7 @@ class CitiesListTableViewController: UITableViewController,NVActivityIndicatorVi
         
         startAnimating()
         self.model.deleteAllData(completionBlock:{success in
-            for city in self.defaultCities{
+            for city in self.model.defaultCities{
                 self.model.createNewCity(city: city, woeid: "")
             }
             self.getCitiesData()
@@ -137,12 +136,10 @@ class CitiesListTableViewController: UITableViewController,NVActivityIndicatorVi
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return cities.count
     }
     
